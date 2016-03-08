@@ -1,0 +1,22 @@
+# Config file for automatic testing at travis-ci.org
+
+language: python
+
+python:
+  - "3.5"
+  - "3.4"
+  - "3.3"
+  - "2.7"
+
+before_install:
+    - pip install -r requirements-dev.txt
+
+install:
+    - python setup.py install
+    - pip install coveralls --use-wheel
+
+script:
+    - py.test -v --flake8 --cov-config .coveragerc --cov idtools idtools/
+
+after_success:
+    - coveralls
