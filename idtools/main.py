@@ -106,6 +106,9 @@ def ensg2sym(ctx, input, output):
         id_entry = id_map.get(item["id"])
         sym = fallback
         if id_entry is not None:
-            sym = id_entry.get("display_name", fallback)
+            if fallback == "unchanged":
+                sym = id_entry.get("display_name", id_entry)
+            else:
+                sym = id_entry.get("display_name", fallback)
         print(sep.join(filter(None, [item["pre"], encl + sym + encl,
                                      item["post"]])))
